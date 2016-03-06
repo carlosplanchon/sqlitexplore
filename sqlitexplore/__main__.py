@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 from os.path import exists
 import sqlite3
@@ -15,7 +14,7 @@ def connect():
             dbconnect = sqlite3.connect(args.database_filename)
             dbcursor = dbconnect.cursor()
         except:
-            print('--- THE CONNECTION WITH THE DATABASE CANNOT BE DONE ---')
+            raise NameError('--- THE CONNECTION WITH THE DATABASE CANNOT BE DONE ---')
     else:
         raise NameError('The database path you provide dont exists.')
 
@@ -38,9 +37,9 @@ motor.set_check_data(False)
 parser = argparse.ArgumentParser(description='A simple CLI sqlite3 explorer written in python3.')
 
 # The arguments are added.
-parser.add_argument('database_filename', metavar='-db', type=str, help='the name of the database file.', nargs='?')
-parser.add_argument('table', metavar='-table', type=str, help='the name of the table to show.', nargs='?')
-parser.add_argument('query', metavar='-query', type=str, help='execute a query in the database.', nargs='?')
+parser.add_argument('-db', dest='database_filename', type=str, help='the name of the database file.')
+parser.add_argument('-table', dest='table', type=str, help='the name of the table to show.')
+parser.add_argument('-query', dest='query', type=str, help='execute a query in the database.')
 
 args = parser.parse_args()
 
@@ -55,7 +54,7 @@ else:
         print('--- QUERY EXECUTED ---')
         print(motor.render(dataset, label_list=False))
         close_conection()
-    if args.table != None:
+    elif args.table != None:
         connect()
         # It tries to get the table information.
         try:
