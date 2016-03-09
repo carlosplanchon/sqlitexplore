@@ -31,7 +31,7 @@ motor = outfancy.render.Table()
 motor.set_show_errors(False)
 motor.set_log_errors(False)
 motor.set_check_data(False)
-# motor.set_check_table_size(False)
+motor.set_check_table_size(False)
 
 # The parser is created.
 parser = argparse.ArgumentParser(description='A simple CLI sqlite3 explorer written in python3.')
